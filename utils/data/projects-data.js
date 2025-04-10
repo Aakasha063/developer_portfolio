@@ -1,40 +1,31 @@
 export const projectsData = [
     {
         id: 1,
-        name: 'AI Powered Financial App',
-        description: "Me and my team built an AI-powered financial mobile application. I have developed API using Express, Typescript, OpenAI, AWS, and MongoDB. Used OTP via AWS SES, Google, and Facebook for the authentication system. Built AI assistants using OpenAI's latest model and trained using our dataset. Voice messages are converted to text using AWS Transcribe. The app fetches data from Google Sheets and generates a PDF term sheet, sent via AWS SES.",
-        tools: ['Express', 'MongoDB', 'OpenAI API', 'AWS SES', 'AWS S3', 'Node Mailer', 'Joi', 'Puppeteer', 'EC2', 'PM2', 'Nginx'],
-        role: 'Backend Developer',
+        name: 'Novus Aurelius',
+        description: "Novus Aurelius is a comprehensive stock market SaaS platform built for retail investors. I led the backend development using Django, MySQL, and Python, implementing key features like real-time stock tracking, personalized investment insights, portfolio analytics, and subscription billing with Stripe. One of the standout features is a leaderboard system that ranks users based on portfolio performance, adding a gamified, competitive edge. The platform includes secure authentication, admin dashboards, and is deployed on AWS EC2 and S3 for scalability and high availability.",
+        tools: ['Python', 'Django', 'Redis', 'Websocket', 'JWT', 'AWS', 'HTML', 'CSS', 'Figma', 'MySQL', 'Stripe'],
+        role: 'Team Lead & Backend Developer',
         code: '',
         demo: '',
     },
     {
         id: 2,
-        name: 'Travel Agency App',
-        description: 'I have designed and developed a full-stack web app for 2Expedition, a travel agency in Armenia. I created the UI using NextJS, Typescript, MUI, TailwindCSS, Google Maps, Sun-Editor, and React Slick. The app supports multiple languages and currencies. I developed the API using NestJS, Typescript, MySQL, TypeORM, AWS, and Nodemailer. I deployed the front-end app to AWS Amplify and the back-end app to AWS EC2.',
-        tools: ['NextJS', 'Tailwind CSS', "Google Maps", "NestJS", "TypeScript", "MySQL", "AWS S3", "Sun-Editor", "Gmail Passkey"],
-        role: 'Full Stack Developer',
+        name: 'Patient Monitoring & Insights Dashboard',
+        description: ' I worked on backend systems for building a Patient Care Dashboard designed to streamline healthcare workflows. We integrated FHIR standards to ensure interoperability and structured data exchange. A key feature was NLP-based tokenization of patient notes — automatically extracting critical information and displaying it as structured tokens on the dashboard for quick insights and analysis. These tokens also powered visualizations like interactive graphs and trends, helping care teams make faster, data-driven decisions. The system was built for efficiency, scalability, and real-world clinical use.',
+        tools: ['Python', 'Django', 'PostgreSQL', 'AWS Lambda', 'S3', 'FHIR', 'Docker', 'CI/CD', 'Jenkins'],
+        role: 'Software Engineer',
         code: '',
         demo: '',
     },
     {
         id: 3,
-        name: 'AI Powered Real Estate',
-        description: 'My team built an AI-based real estate app using Replicate API and OpenAI. We used Express, Typescript, OpenAI, Replicate, Stripe, and Mongoose to develop the API. We utilized NextJS, Formik, TailwindCSS, and other npm libraries for the UI. We have trained multiple AI assistants using the latest GPT model and integrated Replicate API for image processing. We added role-based auth, subscription plans, Cron job scheduling, and payment integration with Stripe.',
-        tools: ['React', 'Bootstrap', 'SCSS', 'Stripe', 'Express', 'TypeScript', 'MongoDB', 'Azure Blob', 'OpenAI API', 'Replicate AI', 'Cronjob', 'JWT'],
+        name: 'Budget ICU',
+        description: 'Budget ICU is an innovative MVP healthcare service built to deliver cost-effective critical care monitoring. I led the end-to-end development of the platform, integrating live camera streaming and real-time patient vitals tracking using custom Python algorithms. The backend was built with Django and connected to a robust MySQL database to securely store and process critical health data. Key features included patient dashboards, continuous monitoring, alert systems, and efficient data retrieval — all designed to enhance ICU-level care in a budget-friendly setup.',
+        tools: ['Python', 'Django', 'Celery', 'OpenCV', 'MySQL', 'AWS', 'Javascript', 'HTML', 'CSS'],
+        role: 'Software Engineer',
         code: '',
-        role: 'Full Stack Developer',
         demo: '',
     },
-    {
-        id: 4,
-        name: 'Newsroom Management',
-        description: "My team and I developed a newspaper management dashboard application called Newsroom Management. As a front-end developer, I worked on creating the dashboard using NextJS, Material UI, Redux, Calendar, and other necessary npm libraries. We used React Redux to manage the application's state and React-hook-form and Sun Editor to handle forms.",
-        tools: ['NextJS', 'Material UI', 'Redux', 'Sun Editor', "Calendar"],
-        code: '',
-        demo: '',
-        role: 'Full Stack Developer',
-    }
 ];
 
 
