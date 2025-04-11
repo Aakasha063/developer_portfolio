@@ -6,6 +6,9 @@ const GlowCard = ({ children, identifier, isClickable = true }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    // Only run this effect on the client side
+    if (typeof window === 'undefined') return;
+
     const CONTAINER = containerRef.current;
     const CARDS = document.querySelectorAll(`.glow-card-${identifier}`);
 
@@ -19,6 +22,8 @@ const GlowCard = ({ children, identifier, isClickable = true }) => {
     };
 
     const UPDATE = (event) => {
+      if (!event) return;
+
       for (const CARD of CARDS) {
         const CARD_BOUNDS = CARD.getBoundingClientRect();
 
