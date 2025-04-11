@@ -7,10 +7,13 @@ const GlowCard = ({ children, identifier, isClickable = true }) => {
 
   useEffect(() => {
     // Only run this effect on the client side
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
     const CONTAINER = containerRef.current;
+    if (!CONTAINER) return;
+
     const CARDS = document.querySelectorAll(`.glow-card-${identifier}`);
+    if (!CARDS.length) return;
 
     const CONFIG = {
       proximity: 40,
@@ -54,26 +57,23 @@ const GlowCard = ({ children, identifier, isClickable = true }) => {
       }
     };
 
-    if (CONTAINER) {
-      CONTAINER.addEventListener('pointermove', UPDATE);
+    const RESTYLE = () => {
+      CONTAINER.style.setProperty('--gap', CONFIG.gap);
+      CONTAINER.style.setProperty('--blur', CONFIG.blur);
+      CONTAINER.style.setProperty('--spread', CONFIG.spread);
+      CONTAINER.style.setProperty(
+        '--direction',
+        CONFIG.vertical ? 'column' : 'row'
+      );
+    };
 
-      const RESTYLE = () => {
-        CONTAINER.style.setProperty('--gap', CONFIG.gap);
-        CONTAINER.style.setProperty('--blur', CONFIG.blur);
-        CONTAINER.style.setProperty('--spread', CONFIG.spread);
-        CONTAINER.style.setProperty(
-          '--direction',
-          CONFIG.vertical ? 'column' : 'row'
-        );
-      };
+    CONTAINER.addEventListener('pointermove', UPDATE);
+    RESTYLE();
+    UPDATE();
 
-      RESTYLE();
-      UPDATE();
-
-      return () => {
-        CONTAINER.removeEventListener('pointermove', UPDATE);
-      };
-    }
+    return () => {
+      CONTAINER.removeEventListener('pointermove', UPDATE);
+    };
   }, [identifier]);
 
   return (
