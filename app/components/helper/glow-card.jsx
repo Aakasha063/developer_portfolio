@@ -1,13 +1,17 @@
 "use client"
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const GlowCard = ({ children, identifier, isClickable = true }) => {
   const containerRef = useRef(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Only run this effect on the client side
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
 
     const CONTAINER = containerRef.current;
     if (!CONTAINER) return;
@@ -74,7 +78,7 @@ const GlowCard = ({ children, identifier, isClickable = true }) => {
     return () => {
       CONTAINER.removeEventListener('pointermove', UPDATE);
     };
-  }, [identifier]);
+  }, [identifier, isMounted]);
 
   return (
     <div ref={containerRef} className={`glow-container-${identifier} glow-container`}>
