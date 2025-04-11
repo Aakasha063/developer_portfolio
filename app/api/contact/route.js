@@ -16,6 +16,11 @@ const transporter = nodemailer.createTransport({
 
 // Helper function to send a message via Telegram
 async function sendTelegramMessage(token, chat_id, message) {
+  if (!token || !chat_id) {
+    console.log('Telegram credentials not configured');
+    return false;
+  }
+
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
   try {
     const res = await axios.post(url, {
@@ -47,6 +52,11 @@ const generateEmailTemplate = (name, email, userMessage) => `
 
 // Helper function to send an email via Nodemailer
 async function sendEmail(payload, message) {
+  if (!process.env.EMAIL_ADDRESS || !process.env.GMAIL_PASSKEY) {
+    console.log('Email credentials not configured');
+    return false;
+  }
+
   const { name, email, message: userMessage } = payload;
   
   const mailOptions = {
@@ -67,6 +77,7 @@ async function sendEmail(payload, message) {
   }
 };
 
+// Export the POST handler
 export async function POST(request) {
   try {
     const payload = await request.json();
@@ -74,11 +85,11 @@ export async function POST(request) {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chat_id = process.env.TELEGRAM_CHAT_ID;
 
-    // Validate environment variables
-    if (!token || !chat_id) {
+    // Validate input
+    if (!name || !email || !userMessage) {
       return NextResponse.json({
         success: false,
-        message: 'Telegram token or chat ID is missing.',
+        message: 'Missing required fields.',
       }, { status: 400 });
     }
 
@@ -90,16 +101,16 @@ export async function POST(request) {
     // Send email
     const emailSuccess = await sendEmail(payload, message);
 
-    if (telegramSuccess && emailSuccess) {
+    if (telegramSuccess || emailSuccess) {
       return NextResponse.json({
         success: true,
-        message: 'Message and email sent successfully!',
+        message: 'Message sent successfully!',
       }, { status: 200 });
     }
 
     return NextResponse.json({
       success: false,
-      message: 'Failed to send message or email.',
+      message: 'Failed to send message. Please try again later.',
     }, { status: 500 });
   } catch (error) {
     console.error('API Error:', error.message);
@@ -109,3 +120,20 @@ export async function POST(request) {
     }, { status: 500 });
   }
 };
+
+// Export other HTTP methods as not allowed
+export async function GET() {
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+}
+
+export async function PUT() {
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+}
+
+export async function DELETE() {
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+}
+
+export async function PATCH() {
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+}
