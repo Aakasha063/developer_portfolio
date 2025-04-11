@@ -1,5 +1,11 @@
+"use client";
+
 export function timeConverter(isoTime) {
-  const currentTime = new Date().getTime();
+  // Get the current time in a way that works on both server and client
+  const currentTime = typeof window !== 'undefined' 
+    ? new Date().getTime() 
+    : Date.now();
+  
   const pastTime = new Date(isoTime).getTime();
   const timeDifference = currentTime - pastTime;
 
