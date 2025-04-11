@@ -2,6 +2,9 @@ import { personalData } from "@/utils/data/personal-data";
 import HomeContent from "./components/homepage/home-content";
 import ClientWrapper from "./components/client-wrapper";
 
+// Skip SSG for the homepage
+export const dynamic = 'force-dynamic';
+
 async function getData() {
   const res = await fetch(`https://dev.to/api/articles?username=${personalData.devUsername}&per_page=100`)
 

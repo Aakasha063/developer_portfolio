@@ -71,13 +71,16 @@ const GlowCard = ({ children, identifier, isClickable = true }) => {
       );
     };
 
-    CONTAINER.addEventListener('pointermove', UPDATE);
-    RESTYLE();
-    UPDATE();
+    // Only add event listener on client side
+    if (typeof window !== 'undefined') {
+      CONTAINER.addEventListener('pointermove', UPDATE);
+      RESTYLE();
+      UPDATE();
 
-    return () => {
-      CONTAINER.removeEventListener('pointermove', UPDATE);
-    };
+      return () => {
+        CONTAINER.removeEventListener('pointermove', UPDATE);
+      };
+    }
   }, [identifier, isMounted]);
 
   return (
