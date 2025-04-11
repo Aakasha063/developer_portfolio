@@ -31,6 +31,16 @@ const nextConfig = {
     ];
     return config;
   },
+  // Disable static optimization for pages that use browser APIs
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['localhost:3000', '*.vercel.app'],
+    },
+  },
+  // Ensure proper handling of client components
+  reactStrictMode: true,
+  // Disable static optimization for the home page
+  output: 'standalone',
 };
 
 module.exports = nextConfig;
