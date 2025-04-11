@@ -1,6 +1,7 @@
 const path = require('path')
  
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
@@ -23,4 +24,13 @@ module.exports = {
       },
     ],
   },
-}
+  webpack: (config, { isServer }) => {
+    // Ignore source map warnings for react-toastify
+    config.ignoreWarnings = [
+      { module: /react-toastify/ },
+    ];
+    return config;
+  },
+};
+
+module.exports = nextConfig;

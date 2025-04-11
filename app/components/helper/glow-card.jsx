@@ -1,10 +1,12 @@
 "use client"
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-const GlowCard = ({ children , identifier}) => {
+const GlowCard = ({ children, identifier, isClickable = true }) => {
+  const containerRef = useRef(null);
+
   useEffect(() => {
-    const CONTAINER = document.querySelector(`.glow-container-${identifier}`);
+    const CONTAINER = containerRef.current;
     const CARDS = document.querySelectorAll(`.glow-card-${identifier}`);
 
     const CONFIG = {
@@ -47,30 +49,33 @@ const GlowCard = ({ children , identifier}) => {
       }
     };
 
-    document.body.addEventListener('pointermove', UPDATE);
+    if (CONTAINER) {
+      CONTAINER.addEventListener('pointermove', UPDATE);
 
-    const RESTYLE = () => {
-      CONTAINER.style.setProperty('--gap', CONFIG.gap);
-      CONTAINER.style.setProperty('--blur', CONFIG.blur);
-      CONTAINER.style.setProperty('--spread', CONFIG.spread);
-      CONTAINER.style.setProperty(
-        '--direction',
-        CONFIG.vertical ? 'column' : 'row'
-      );
-    };
+      const RESTYLE = () => {
+        CONTAINER.style.setProperty('--gap', CONFIG.gap);
+        CONTAINER.style.setProperty('--blur', CONFIG.blur);
+        CONTAINER.style.setProperty('--spread', CONFIG.spread);
+        CONTAINER.style.setProperty(
+          '--direction',
+          CONFIG.vertical ? 'column' : 'row'
+        );
+      };
 
-    RESTYLE();
-    UPDATE();
+      RESTYLE();
+      UPDATE();
 
-    // Cleanup event listener
-    return () => {
-      document.body.removeEventListener('pointermove', UPDATE);
-    };
+      return () => {
+        CONTAINER.removeEventListener('pointermove', UPDATE);
+      };
+    }
   }, [identifier]);
 
   return (
-    <div className={`glow-container-${identifier} glow-container`}>
-      <article className={`glow-card glow-card-${identifier} h-fit cursor-pointer border border-[#2a2e5a] transition-all duration-300 relative bg-[#101123] text-gray-200 rounded-xl hover:border-transparent w-full`}>
+    <div ref={containerRef} className={`glow-container-${identifier} glow-container`}>
+      <article 
+        className={`glow-card glow-card-${identifier} h-fit ${isClickable ? 'cursor-pointer' : ''} border border-[#2a2e5a] transition-all duration-300 relative bg-[#101123] text-gray-200 rounded-xl hover:border-transparent w-full`}
+      >
         <div className="glows"></div>
         {children}
       </article>

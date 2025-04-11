@@ -7,9 +7,10 @@ import Experience from "./components/homepage/experience";
 import HeroSection from "./components/homepage/hero-section";
 import Projects from "./components/homepage/projects";
 import Skills from "./components/homepage/skills";
+import ClientWrapper from "./components/client-wrapper";
 
 async function getData() {
-  const res = await fetch(`https://dev.to/api/articles?username=${personalData.devUsername}`)
+  const res = await fetch(`https://dev.to/api/articles?username=${personalData.devUsername}&per_page=100`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
@@ -26,7 +27,7 @@ export default async function Home() {
   const blogs = await getData();
 
   return (
-    <div suppressHydrationWarning >
+    <ClientWrapper>
       <HeroSection />
       <AboutSection />
       <Experience />
@@ -35,6 +36,6 @@ export default async function Home() {
       <Education />
       <Blog blogs={blogs} />
       <ContactSection />
-    </div>
+    </ClientWrapper>
   )
 };
